@@ -29,17 +29,42 @@ const db = mysql.createPool({
 
 // 向 users 表中，新增一条数据，其中 username 的值为 Spider-Man password的值为 pcc23
 // 
-const user = { username: 'Spider-Man', password: 'pcc23'}
-// 定义待执行的 SQL 语句
-const sqlStr = 'insert into users (username, password) values (?, ?)'
+// const user = { username: 'Spider-Man', password: 'pcc23'}
+// // 定义待执行的 SQL 语句
+// const sqlStr = 'insert into users (username, password) values (?, ?)'
+// // 执行 SQL 语句
+// db.query(sqlStr, [user.username, user.password], (err, results) => {
+//     // 执行 SQL 语句失败了
+//     if (err) return console.log(err.message);
+//     // 成功了
+//     // 注意：如果执行的是 insert into 插入语句，则 results 是一个对象
+//     // 可以通过 affectedRows 判断是否插入成功
+//     if (results.affectedRows  === 1) {
+//         console.log('数据插入成功！');
+//     }
+// })
+
+// 演示 插入数据的便捷方式
+// const user = { username: 'Spider-Man1', password: 'pcc4321'}
+// // 定义待执行的 SQL 语句
+// const sqlStr = 'insert into users set ?'
+// // 执行 SQL 语句
+// db.query(sqlStr, user, (err, results) => {
+//     if (err) return console.log(err.message);
+//     if (results.affectedRows === 1) {
+//         console.log('插入数据成功！');
+//     }
+// })
+
+// 演示如何更新用户信息
+const user = { id: 8, username: 'aaa', password: '000'}
+// 定义 SQL 语句
+const sqlStr = 'update users set username = ?, password = ? where id = ?'
 // 执行 SQL 语句
-db.query(sqlStr, [user.username, user.password], (err, results) => {
-    // 执行 SQL 语句失败了
+db.query(sqlStr, [user.username, user.password, user.id], (err, results) => {
     if (err) return console.log(err.message);
-    // 成功了
-    // 注意：如果执行的是 insert into 插入语句，则 results 是一个对象
-    // 可以通过 affectedRows 判断是否插入成功
-    if (results.affectedRows  === 1) {
-        console.log('数据插入成功！');
+    // 注意：执行了 update 语句之后，执行的结果，也是一个对象，可以通过 affectedRows 判断是否更新成功
+    if (results.affectedRows === 1) {
+        console.log('更新成功！');
     }
 })
