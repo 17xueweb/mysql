@@ -57,13 +57,25 @@ const db = mysql.createPool({
 // })
 
 // 演示如何更新用户信息
-const user = { id: 8, username: 'aaa', password: '000'}
+// const user = { id: 8, username: 'aaa', password: '000'}
+// // 定义 SQL 语句
+// const sqlStr = 'update users set username = ?, password = ? where id = ?'
+// // 执行 SQL 语句
+// db.query(sqlStr, [user.username, user.password, user.id], (err, results) => {
+//     if (err) return console.log(err.message);
+//     // 注意：执行了 update 语句之后，执行的结果，也是一个对象，可以通过 affectedRows 判断是否更新成功
+//     if (results.affectedRows === 1) {
+//         console.log('更新成功！');
+//     }
+// })
+
+// 演示更新数据便捷写法
+const user = { id: 8, username: 'aaaa', password: '0000'}
 // 定义 SQL 语句
-const sqlStr = 'update users set username = ?, password = ? where id = ?'
+const sqlStr = 'update users set ? where id = ?'
 // 执行 SQL 语句
-db.query(sqlStr, [user.username, user.password, user.id], (err, results) => {
+db.query(sqlStr, [user, user.id], (err, results) => {
     if (err) return console.log(err.message);
-    // 注意：执行了 update 语句之后，执行的结果，也是一个对象，可以通过 affectedRows 判断是否更新成功
     if (results.affectedRows === 1) {
         console.log('更新成功！');
     }
